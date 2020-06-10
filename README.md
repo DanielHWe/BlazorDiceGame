@@ -1,4 +1,7 @@
 # BlazorDiceGame
+
+[![Travis Build Status](https://travis-ci.org/DanielHWe/BlazorDiceGame.svg?branch=master)](https://travis-ci.org/DanielHWe/BlazorDiceGame)
+
 A simple dice game programmed as .Net Core Blazor WebAssembly.
 
 ## Idea
