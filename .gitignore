@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/DiceGame
+/bin/Debug/netstandard2.1/wwwroot/_framework
+/bin/Debug/netstandard2.1
+/obj
+/DiceGame.csproj.user
