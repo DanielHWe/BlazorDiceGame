@@ -25,5 +25,5 @@ Model/GameFiledModel, representing the model of the game and the game logic.
 * Toasts for game messages
 * RESTService for PvP
 
-# Sample
+# Demo
 [http://blazordicegame.daniel-wehrle.de/](http://blazordicegame.daniel-wehrle.de/)
