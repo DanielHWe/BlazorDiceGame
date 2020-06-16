@@ -1,10 +1,9 @@
 ﻿@inject IModalService ModalService
 
 <div>
-    <p>Create a new Game?</p>
+    <DiceGame.Pages.View.NotificationSettings></DiceGame.Pages.View.NotificationSettings>
 
-    <button @onclick="Yes" class="btn btn-outline-danger">Yes</button>
-    <button @onclick="No" class="btn btn-primary">No</button>
+    <button @onclick="Yes" class="btn btn-outline-danger">Ok</button>    
 </div>
 
 @code {
@@ -18,6 +17,5 @@
         BlazoredModal.Close();
     }
 
-    void No() => BlazoredModal.Cancel();
 
 }

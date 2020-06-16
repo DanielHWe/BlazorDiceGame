@@ -20,10 +20,8 @@ And there is one Service:
 Model/GameFiledModel, representing the model of the game and the game logic. 
 
 # Next steps
-* Make the GameFieldModel a real service and devide Model and ViewModel
-* Bring the Modal NewGame Popup to work
-* Toasts for game messages
 * RESTService for PvP
+* Show Message for winner
 
 # Demo
 [http://blazordicegame.daniel-wehrle.de/](http://blazordicegame.daniel-wehrle.de/)

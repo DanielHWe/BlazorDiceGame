@@ -6,8 +6,9 @@ install:
   - dotnet restore
 script:
   - dotnet build
+  - dotnet publish
 before_deploy:
-- cd ${TRAVIS_BUILD_DIR}/bin/Debug/netstandard2.1
+- cd ${TRAVIS_BUILD_DIR}/bin/Debug/netstandard2.1/publish
 - zip -qr BlazorDiceGame.zip .
 deploy:  
   provider: releases

@@ -2,10 +2,21 @@
 @inject IModalService Modal
 
 @using Model
+@using Services
 @inject GameFieldModel GameField
+@inject IToastService toastService
+@inject NotificationService notificationService
 
-<h1>Your Game</h1>
-<button @onclick="ShowModal" class="btn btn-primary">New Game</button>
+@if (GameField != null && GameField.ActivePlayer != null)
+{
+    <h1>Turn of @GameField.ActivePlayer.Name</h1>
+}
+else
+{
+    <h1>Dice Game</h1>
+}
+<button class="btn btn-primary" @onclick="BtnDice" disabled="@GameField.AllowMove"><span class="oi" aria-hidden="true">&#x1f3b2;</span>Dice</button>
+<button @onclick="ShowModal" class="btn btn-primary">Settings</button>
 
 <div class="dice-game">
     @if (GameField != null)
@@ -41,6 +52,7 @@
                 @if (piece.Changed)
                 {
                     <circle stroke-width="1" stroke="@piece.ChangedColor" fill="#F2F5A9" cx="16" cy="16" r="14"></circle>
+
                 }
                 @if (piece.Meeple != null)
                 {
@@ -57,23 +69,27 @@
                               id="path3713" />
                     }
                 }
+                @if (piece.IsPossibleTargetOfMove && GameField.AllowMove)
+                {
+                    <path fill="@GameField.ActivePlayer.Color" d="M3.5 0c-1.93 0-3.5 1.57-3.5 3.5 0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v.5h-1l2 2 2-2h-1v-.5c0-1.93-1.57-3.5-3.5-3.5z" transform="translate(5 10) scale (2.5)" />
+                }
             </svg>
         }
-        
-        <p style="grid-area: 3 / 9 / 4 / 10;" id="dice">@GameField.LastDiceView</p>
+
+        <p style="grid-area: 3 / 9 / 4 / 10;" id="dice" @onclick="BtnDice">@GameField.LastDiceView</p>
         @foreach (var player in GameField.Player)
         {
             if (player == null || !player.IsPlaying) continue;
             var idx = player.Id + 1;
             if (player.IsActive)
             {
-                <p style="grid-area: @idx / 21 / @idx / 24;color: @player.Color;font-weight: bold;background-color: @player.BackColor;padding:2;height: 30px;">@player.LastDiceSeries</p>
+                <p style="grid-area: @idx / 21 / @idx / 24;color: @player.Color;font-weight: bold;background-color: @player.BackColor;padding:2;height: 30px;" class="dice">@player.LastDiceSeries</p>
                 <button class="btn btn-primary" @onclick="BtnDice" autofocus style="grid-area:  @idx / 19; padding: 0;" disabled="@GameField.AllowMove"><span class="oi" aria-hidden="true">&#x1f3b2;</span></button>
                 <button class="btn btn-primary" @onclick="BtnMove" autofocus style="grid-area:  @idx / 20; padding: 0;" disabled="@GameField.AllowDice"><span class="oi oi-action-redo" aria-hidden="true"></span></button>
             }
             else
             {
-                <p style="grid-area: @idx / 21 / @idx / 24;color: @player.Color;font-weight: normal;background-color: @player.BackColor;padding:2;height: 30px;">@player.LastDiceSeries</p>
+                <p style="grid-area: @idx / 21 / @idx / 24;color: @player.Color;font-weight: normal;background-color: @player.BackColor;padding:2;height: 30px;" class="dice">@player.LastDiceSeries</p>
             }
         }
     }
@@ -90,13 +106,19 @@
 
     public void BtnDice()
     {
+        if (!GameField.AllowDice) return;
+        var header = GameField.ActivePlayer.Name;
         GameField.DoDice();
         InvokeAsync(StateHasChanged);
+        notificationService.OnDice(toastService, GameField.LastDiceView, header);
+        notificationService.OnPossibleKick(toastService, GameField.GetPossibleKicks(), header);
     }
 
     public void BtnMove()
     {
-        GameField.DoMove();
+        var header = GameField.ActivePlayer.Name;
+        var move = GameField.DoMove();
+        notificationService.OnMove(toastService, move, header);
         InvokeAsync(StateHasChanged);
     }
 
@@ -107,7 +129,7 @@
 
     async Task ShowModal()
     {
-        var messageForm = Modal.Show<NewGame>();
+        var messageForm = Modal.Show<Settings>();
         var result = await messageForm.Result;
 
         if (!result.Cancelled)

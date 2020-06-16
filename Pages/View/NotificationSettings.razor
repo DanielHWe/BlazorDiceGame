@@ -1,0 +1,68 @@
+﻿
+@using Services
+@inject NotificationService notificationService
+
+<h3>Notification</h3>
+
+<table class="gamestart">
+    <tr>
+        <th class="gamestart">Notification</th>
+        <th class="gamestart">Is Showing</th>
+    </tr>
+    <tr>
+        <td class="gamestart">Kick</td>
+        <td class="gamestart">
+            @if (notificationService.NotifyOnKick)
+            {
+                <span class="oi oi-circle-check" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnKick = false)"></span>
+            }
+            else
+            {
+                <span class="oi oi-circle-x" aria-hidden="true" style="color: #FF0000;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnKick = true)"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class="gamestart">Possible Kick</td>
+        <td class="gamestart">
+            @if (notificationService.NotifyOnPossibleKick)
+            {
+                <span class="oi oi-circle-check" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnPossibleKick = false)"></span>
+            }
+            else
+            {
+                <span class="oi oi-circle-x" aria-hidden="true" style="color: #FF0000;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnPossibleKick = true)"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class="gamestart">Move</td>
+        <td class="gamestart">
+            @if (notificationService.NotifyOnMove)
+            {
+                <span class="oi oi-circle-check" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnMove = false)"></span>
+            }
+            else
+            {
+                <span class="oi oi-circle-x" aria-hidden="true" style="color: #FF0000;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnMove = true)"></span>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td class="gamestart">Dice</td>
+        <td class="gamestart">
+            @if (notificationService.NotifyOnDice)
+            {
+                <span class="oi oi-circle-check" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnDice = false)"></span>
+            }
+            else
+            {
+                <span class="oi oi-circle-x" aria-hidden="true" style="color: #FF0000;font-size: 24px;" @onclick="@(e => notificationService.NotifyOnDice = true)"></span>
+            }
+        </td>
+    </tr>
+</table>
+
+@code {
+
+}

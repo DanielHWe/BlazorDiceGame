@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Blazored.Modal;
 using DiceGame.Model;
+using Blazored.Toast;
+using DiceGame.Services;
 
 namespace DiceGame
 {
@@ -21,7 +23,9 @@ namespace DiceGame
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredModal();
+            builder.Services.AddBlazoredToast();
             builder.Services.AddSingleton<GameFieldModel>();
+            builder.Services.AddSingleton<NotificationService>();
 
             await builder.Build().RunAsync();
         }

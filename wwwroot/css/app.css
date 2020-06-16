@@ -229,8 +229,8 @@ td.gamestart {
     align-content: center;
 }
 
-span.dice {
+p.dice {
     font-family: Symbola, Code2000, DejaVu Sans, Droid Sans Fallback, EversonMono, STIXGeneral, Quivira, Unicode BMP Fallback SIL;
-    line-height: 2em;
-    font-size: 300%;
+    line-height: 1;
+    font-size: 28px;
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiceGame.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,27 +29,50 @@ namespace DiceGame.Model
         {
             this.Color = color;
             this.Id = id;
-            this.Name = "Player " + id;
+            this.Name = "Player " + (id+1);
             this.IsPlaying = true;
         }
 
         public void DiceAndCalcMove()
         {
             if (LastDice != 6) LastDiceSeries = "";
+            DiceAndCalcMoveImpl();
 
+            for (int i = 0; i < 2 && !PossibleMoves.Any() && AllMeepleOnBase(); i++)
+            {
+                DiceAndCalcMoveImpl();
+            }
+        }
+
+        private bool AllMeepleOnBase()
+        {
+            return ! Meeples.Any(m => !m.OnBase);
+        }
+
+        private void DiceAndCalcMoveImpl()
+        {
             LastDice = Math.Min(6, 1 + _r.Next(6));
 
-            LastDiceSeries += LastDiceSeries.Length == 0 ? LastDice.ToString() : " - " + LastDice;
+            AddToLastDiceSeries(LastDice);
 
             PossibleMoves.Clear();
             CalcMoves();
-
-            
         }
 
-        public void Move()
+        private void AddToLastDiceSeries(int lastDice)
         {
-            if (PossibleMoves.Any()) PossibleMoves.First().Perform();
+            LastDiceSeries += DiceUnicode.GetUnicode(LastDice).ToString();
+        }
+
+        public MoveModel Move()
+        {
+            if (PossibleMoves.Any())
+            {
+                var move = PossibleMoves.First();
+                move.Perform();
+                return move;
+            }
+            return null;
         }
 
         public bool TryMove(PieceModel piece)
@@ -131,6 +155,7 @@ namespace DiceGame.Model
             orgPosition.Changed = true;
             orgPosition.ChangedColor = this.Color;
             newPos.Changed = true;
+            newPos.IsPossibleTargetOfMove = true;
             newPos.ChangedColor = this.Color;
 
             return true;
@@ -155,6 +180,7 @@ namespace DiceGame.Model
                             }
                             );
                         StartPosition.Changed = true;
+                        StartPosition.IsPossibleTargetOfMove = true;
                         return true;
                     } else if (StartPosition.Meeple.Player.Color == this.Color)
                     {
@@ -174,6 +200,7 @@ namespace DiceGame.Model
                              }
                              );
                         StartPosition.Changed = true;
+                        StartPosition.IsPossibleTargetOfMove = true;
                         return true;
                     }
                 }

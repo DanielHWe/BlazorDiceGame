@@ -70,16 +70,23 @@ namespace DiceGame.Model
             ActivePlayer.IsActive = true;
         }
 
-        public void DoMove()
+        public IEnumerable<MoveModel> GetPossibleKicks()
+        {
+            if (ActivePlayer.PossibleMoves == null) return new List<MoveModel>();
+            return ActivePlayer.PossibleMoves.Where(m => m.ThrownMeeple != null).ToList();
+        }
+
+        public MoveModel DoMove()
         {
             var curr = ActivePlayer;
-            curr.Move();
+            var move = curr.Move();
 
             AllowMove = false;
             if (LastDice != 6)
             {
                 SelectNextPlayer();
             }
+            return move;
         }
 
         public bool TryMove(PieceModel piece)
@@ -103,6 +110,7 @@ namespace DiceGame.Model
             foreach(var p in Pieces)
             {
                 p.Changed = false;
+                p.IsPossibleTargetOfMove = false;
                 p.ChangedColor = "#000000";
             }
         }

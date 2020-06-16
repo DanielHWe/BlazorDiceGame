@@ -12,6 +12,7 @@ namespace DiceGame.Model
         public int Y { get; set; }
 
         public bool Changed { get; set; }
+        public bool IsPossibleTargetOfMove { get; set; }
         public string ChangedColor { get; set; }
         public string Color { get; set; }
 
