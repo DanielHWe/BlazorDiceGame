@@ -3,20 +3,20 @@ mono: none
 dist: xenial
 dotnet: 3.1
 install:
-  - dotnet restore
+- dotnet restore
 script:
-  - dotnet build
-  - dotnet publish
+- dotnet build
+- dotnet publish
 before_deploy:
 - cd ${TRAVIS_BUILD_DIR}/bin/Debug/netstandard2.1/publish
 - zip -qr BlazorDiceGame.zip .
-deploy:  
+deploy:
   provider: releases
-  skip_cleanup: true
   api_key:
-    secure: PToFyyllcWniZA1IM6xsbDnbUQNtLrheFDlaSVVTAP9URIn1hmDBjFAcZhNuWBOqa2JAlNzkxDTdq/Hp6O8RRz7w+o+blSoGH+JaZQE7/zCi4AX8z3IUYVu0qwmerX616DHpHVejz3pEES2siDTZM23mRMbmtal78CmtGCf0XfAVQ0MMlJMww+de0Bi3VNB+ranYbuRiDdeo2Kudja3+cfVgy2hPq81c1q1GdrND3iWK+JAMAKwGiAbiAK5jUolXLw3XWyn3Uenm1ddIOEcRtXQ6QJBwXGRShDeoEsRDlsML6vw3AdsIx+x/y1xeo2Lt8bYyXqAVm8ZkQRjMBb+kWT2sOFWLk5VZe3PhTwRbLptR2twNsEydMlWFjpxndtzim/u7I8G6YzNK+9qJC2HvCmMbyAniPDC0DBlKSHcUEi7nWEBsm9UWilXblf2i3KvGdX8I8BB+Y5WbuUA6p3y6P+ZnNxfkwUPGFT4+sfjz6tKRkCnbfAhY3ykI0tK1Z3gHPOhB3pyd0rKVodHRGY/ynGEBNFzkhc+ykTOcpTTURQd58l25Yuv1aiigLO/2ISXBRCDyWX+k/9Y7YCkNrQS5rCHnfllKiMSTpMEHu3SrNVSAbtsB+uE4teU9n9V5C+oANNSXvXQctZmLh8+DYmp4ppU8qhTPcPRHTEJk31Ss8oM=
+    secure: bGLvd/aw5j0Llf5Tz4WWRFJqLXifwmIYbOQUdindmGKjgaIsIj9EHuOix0767lA0QujIEI031snxgOO44A19Sl7ce5N+8rj+5pjWTrKKmf/IHHoBr/qvlBUega5OYDiuwo1TP2UiSeaqSBhLpeCIRwcYXiF6mQ0tXboLC1uWklTFFll4aCSGGSSV+CRBdN4IrsRyvnvVFt+7Nm7RZTZQePbJkAxHJBWrFJxgFJLKEIV3g/Xp4UyN1pVmdVuCRqQpFgH+oyE0hx1FwYnBJDS4YxDrimIFcD9mluTznZqtEUYKL6zLUVprpzcwH8RWPwb29UIU2g5d9iqdaQiE2BUDPjuSc/LsLMckS9trFYVB1raGzBgwqqG0leI8Za2RSL/krqI6TLD6YI0MrDIx+tCYPAArVFY7bXxg9igV0+WalnW5w+uVL7DUSNbf+DB903vx0Q6lOEDswXwCUSz8Nt4ITgzKXH46nDXam5g65y5y6nHbrwnTEYNenKsv2JkPQiMNabfwMn+yvIe51btsl86Y5J8VfUQbxi1oQZgPRBO8AuZop9yHzD3bucNTJHE03zKTv00YwaTbndCm456IsVnAQyviT8bXkIxjxxeEIq1xRy2iDzvKNHWFu7ZvwQsZI3jf6TbzMzuhvLaPNg8x5XMnVJWTGLjUVinWlF8j1gqf+ck=
   file: ${TRAVIS_BUILD_DIR}/bin/Debug/netstandard2.1/BlazorDiceGame.zip
   on:
     repo: DanielHWe/BlazorDiceGame
     all_branches: true
     tags: true
+  skip_cleanup: 'true'
