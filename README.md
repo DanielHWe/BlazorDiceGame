@@ -12,6 +12,12 @@ In current state it is only possible to play on same screen, in the next step I 
 
 # How to get started
 
+## Deploy
+
+Get the Zip from releases and deploy the wwwroot folder to a webspace. In the moment it is expected that the url is on domain level.
+
+## Modify and Compile
+
 There are two simple pages:
 * Index.razor just define players and player names
 * game.razor game view include svg handling
