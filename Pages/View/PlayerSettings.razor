@@ -1,5 +1,6 @@
 ﻿@using Model
-@inject GameFieldModel GameField
+@using Services
+@inject GameService GameField
 
 
 <h3>Player</h3>
@@ -10,7 +11,7 @@
         <th class="gamestart">Name</th>
         <th class="gamestart">Is Playing</th>
     </tr>
-    @foreach (var player in GameField.Player)
+    @foreach (var player in GameField.GameField.Player)
     {
         if (player == null) continue;
         <tr>

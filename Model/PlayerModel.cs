@@ -75,17 +75,19 @@ namespace DiceGame.Model
             return null;
         }
 
-        public bool TryMove(PieceModel piece)
+        public bool TryMove(PieceModel piece, Action resetBeforeMove)
         {
             foreach(var move in PossibleMoves)
             {
                 if (move.EndPosition == piece)
                 {
+                    resetBeforeMove();
                     move.Perform();
                     return true;
                 }
                 if (move.StartPosition == piece)
                 {
+                    resetBeforeMove();
                     move.Perform();
                     return true;
                 }

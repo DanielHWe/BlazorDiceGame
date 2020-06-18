@@ -9,103 +9,17 @@ namespace DiceGame.Model
 {
     public class GameFieldModel
     {        
-        public int _currentPlayerId = 0;
+        
         public int _nextIdx = 1;
         public PieceModel _lastPiece;
         public IList<PieceModel> Pieces { get; } = new List<PieceModel>();
         public PlayerModel[] Player { get; } = new PlayerModel[8];
 
-        public int LastDice { get; set; }
-        public String LastDiceView { get; set; }
+        
 
-        public bool AllowMove { get; set; }
-        public bool AllowDice {  get { return !AllowMove; } }
+        
 
-        public PlayerModel ActivePlayer
-        {
-            get
-            {
-                return Player[_currentPlayerId];
-            }
-        }
-
-        public void DoDice()
-        {
-            ResetChangedPieces();
-            var curr = ActivePlayer;
-            curr.DiceAndCalcMove();
-            SetLastDiceInfo(curr);
-
-            if (curr.PossibleMoves.Any())
-            {
-                AllowMove = true;
-            }
-            else
-            {
-                if (LastDice != 6)
-                {
-                    SelectNextPlayer();
-                }
-            }
-
-        }
-
-        private void SetLastDiceInfo(PlayerModel curr)
-        {
-            LastDice = curr.LastDice;
-            LastDiceView = DiceUnicode.GetUnicode(LastDice).ToString();
-        }
-
-        private void SelectNextPlayer()
-        {
-            ActivePlayer.IsActive = false;
-            do
-            {
-                _currentPlayerId++;
-                if (_currentPlayerId >= Player.Length || Player[_currentPlayerId] == null)
-                {
-                    _currentPlayerId = 0;
-                }
-            } while (!Player[_currentPlayerId].IsPlaying);
-            ActivePlayer.IsActive = true;
-        }
-
-        public IEnumerable<MoveModel> GetPossibleKicks()
-        {
-            if (ActivePlayer.PossibleMoves == null) return new List<MoveModel>();
-            return ActivePlayer.PossibleMoves.Where(m => m.ThrownMeeple != null).ToList();
-        }
-
-        public MoveModel DoMove()
-        {
-            var curr = ActivePlayer;
-            var move = curr.Move();
-
-            AllowMove = false;
-            if (LastDice != 6)
-            {
-                SelectNextPlayer();
-            }
-            return move;
-        }
-
-        public bool TryMove(PieceModel piece)
-        {
-            var curr = ActivePlayer;
-            if (curr.TryMove(piece))
-            {
-
-                AllowMove = false;
-                if (LastDice != 6)
-                {
-                    SelectNextPlayer();
-                }
-                return true;
-            }
-            return false;
-        }
-
-        private void ResetChangedPieces()
+        internal void ResetChangedPieces()
         {
             foreach(var p in Pieces)
             {
@@ -228,6 +142,11 @@ namespace DiceGame.Model
             greenHome = AddFinalPiece(greenHome.Color, greenHome.X, greenHome.Y - 1, greenHome);
             greenHome = AddFinalPiece(greenHome.Color, greenHome.X, greenHome.Y - 1, greenHome);
             greenHome = AddFinalPiece(greenHome.Color, greenHome.X, greenHome.Y - 1, greenHome);
+
+            purpleHome = AddFinalPiece("Purple", purpleHome.X, purpleHome.Y - 1, purpleHome);
+            purpleHome = AddFinalPiece(purpleHome.Color, purpleHome.X, purpleHome.Y - 1, purpleHome);
+            purpleHome = AddFinalPiece(purpleHome.Color, purpleHome.X, purpleHome.Y - 1, purpleHome);
+            purpleHome = AddFinalPiece(purpleHome.Color, purpleHome.X, purpleHome.Y - 1, purpleHome);
 
             yellowHome = AddFinalPiece("Yellow", yellowHome.X, yellowHome.Y - 1, yellowHome);
             yellowHome = AddFinalPiece(yellowHome.Color, yellowHome.X, yellowHome.Y - 1, yellowHome);
