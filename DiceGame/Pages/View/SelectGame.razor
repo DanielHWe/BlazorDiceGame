@@ -1,0 +1,55 @@
+﻿@using Model
+@using Services
+@using DiceGameFunction.Model
+@inject NavigationManager NavigationManager
+@inject GameService GameField
+@inject IModalService ModalService
+
+
+<div style="min-width: 250px; margin: 5px;">
+    <h5>Your Name</h5>
+
+    <input @bind="GameField.JoinRequest.Name" @bind:event="oninput" />
+</div>
+
+<div style="min-width: 250px; margin: 5px;">
+    <h5>Select Game</h5>
+
+    @if (GameField.PvPStatus != null && GameField.PvPStatus.OpenGames != null)
+    {
+        <table class="gamestart" style="min-width: 250px;">
+            <tr>
+                <th class="gamestart" style="min-width: 125px;">Name</th>
+                <th class="gamestart" style="min-width: 125px;">Host</th>
+                <th class="gamestart" style="min-width: 125px;">Created</th>
+                <th class="gamestart" style="min-width: 125px;">Start</th>
+            </tr>
+            @foreach (var game in GameField.PvPStatus.OpenGames)
+            {
+                if (game.GameName == null) continue;
+        <tr>
+            <td class="gamestart">@game.GameName </td>
+            <td class="gamestart">@game.HostName </td>
+            <td class="gamestart">@game.StartTime.ToShortTimeString() </td>
+            <td class="gamestart">
+                <span class="oi oi-media-play" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(() => BtnJoin(game))"></span>
+            </td>
+        </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Server not connected or no game found, try to create a new PvP game.</p>
+    }
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+
+    public async Task BtnJoin(PvPGameModel game)
+    {
+        GameField.ActivatePvP(game);
+        BlazoredModal.Close();
+    }
+}

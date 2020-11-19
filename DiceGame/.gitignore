@@ -3,11 +3,11 @@
 ################################################################################
 
 /.vs/DiceGame
-/DiceGame/output
-/DiceGame/outputWebApp
-/DiceGame.Interfaces/bin
-/DiceGame.Interfaces/obj
-/DiceGameFunction/Properties/PublishProfiles
-/DiceGameSignalRServer/.vs/DiceGameSignalRServer
-/DiceGameSignalRServer/bin
-/DiceGameSignalRServer/obj
+/bin/Debug/netstandard2.1/wwwroot/_framework
+/bin/Debug/netstandard2.1
+/obj
+/DiceGame.csproj.user
+/bin/Release/netstandard2.1
+/Properties/PublishProfiles/FolderProfile.pubxml.user
+/Properties/PublishProfiles
+/.vs

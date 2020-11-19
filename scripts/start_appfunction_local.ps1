@@ -1,0 +1,1 @@
+﻿dotnet "$env:USERPROFILE\AppData\Local\AzureFunctionsTools\Releases\3.7.0\cli_x64\func.dll" host start --port 7071 --cors * --pause-on-error 

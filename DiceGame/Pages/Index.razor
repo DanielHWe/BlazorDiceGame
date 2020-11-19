@@ -1,0 +1,113 @@
+﻿@page "/"
+@inject IModalService Modal
+
+@using Model
+@using Services
+@inject NavigationManager NavigationManager
+@inject GameService GameField
+@inject NotificationService notificationService
+
+<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px">Singleplayer Game</button>
+<button class="btn btn-primary" @onclick="BtnNewRemote"style="margin: 5px">New PvP Game</button>
+<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px">Join PvP Game</button>
+
+<div style="margin: 5px">
+    @if (LocalGame)
+    {
+
+        <h2>Start New Game</h2>
+
+        <button class="btn btn-primary" @onclick="BtnStart"><span class="oi oi-media-play"></span> Start</button>
+
+        <DiceGame.Pages.View.PlayerSettings></DiceGame.Pages.View.PlayerSettings>
+
+        <DiceGame.Pages.View.NotificationSettings></DiceGame.Pages.View.NotificationSettings>
+    }
+    else
+    {
+        <DiceGame.Pages.View.PvPSettings></DiceGame.Pages.View.PvPSettings>
+
+        if (NewRemoteGame)
+        {
+            <button @onclick="BtnStartRemote" class="btn btn-outline-danger">Start Game</button>
+        } else
+        {
+            <p>Please wait until the host starts the game.</p>
+        }
+    }
+</div>
+
+
+@code {
+    bool LocalGame { get; set; }
+    bool NewRemoteGame { get; set; }
+    bool JoinGame { get; set; }
+    String GameId { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        LocalGame = true;
+        NewRemoteGame = false;
+        JoinGame = false;
+
+        var formModal = Modal.Show<DiceGame.Pages.View.StartupBanner>("Use");
+        var result = await formModal.Result;
+
+        if (result.Data == "remote")
+        {
+            await BtnNewRemote();
+        }
+        else if (result.Data == "join")
+        {
+            await BtnJoin();
+        }
+    }
+
+    public void BtnStart()
+    {
+        NavigationManager.NavigateTo("/Game");
+    }
+
+    public async Task BtnStartRemote()
+    {
+        GameField.SendStartPvPGame();
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void BtnLocal()
+    {
+        LocalGame = true;
+        NewRemoteGame = false;
+        JoinGame = false;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public async Task BtnNewRemote()
+    {
+        LocalGame = false;
+        NewRemoteGame = true;
+        JoinGame = false;
+        GameField.JoinRequest = new DiceGame.Interfaces.Messages.JoinRequest() { GameName = "?", Name = "Player 1", Id = "0" };
+
+        var messageForm = Modal.Show<DiceGame.Pages.View.JoinGameSettings>("Game Setting");
+        var result = await messageForm.Result;
+
+        await GameField.ActivatePvP(null);
+        InvokeAsync(StateHasChanged);
+    }
+
+    public async Task BtnJoin()
+    {
+        LocalGame = false;
+        NewRemoteGame = false;
+        JoinGame = true;
+        GameField.JoinRequest = new DiceGame.Interfaces.Messages.JoinRequest() { GameName = "?", Name = "?", Id = "?" };
+        await GameField.LoadPvPGames();
+
+        var messageForm = Modal.Show<DiceGame.Pages.View.SelectGame>("Join Game");
+        var result = await messageForm.Result;
+
+        InvokeAsync(StateHasChanged);
+    }
+}

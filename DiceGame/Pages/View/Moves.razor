@@ -1,0 +1,70 @@
+﻿@using Model
+@using Services
+@using DiceGame.Interfaces.Messages
+@inject GameService GameField
+
+<h3>Moves</h3>
+<p>Game id: @GameField.GameId</p>
+<p>Last Move id: @GameField.LastMoveId</p>
+
+@if (MoveList != null)
+{
+<table class="gamestart">
+    <tr>
+        <th class="gamestart">Move No.</th>
+        <th class="gamestart">Player No.</th>
+        <th class="gamestart">Dice</th>
+        <th class="gamestart">Meeple</th>
+        <th class="gamestart">Is Playing</th>
+    </tr>
+    @foreach (var move in MoveList)
+    {
+<tr>
+    <td class="gamestart">@move.MoveId</td>
+    <td class="gamestart">@move.PlayerId ( @move.PlayerName )</td>
+    <td class="gamestart"><p class="dice">@move.DiceView</p></td>
+    @if (move.MeepleId >= 0)
+    {
+        <td class="gamestart">@move.MeepleId</td>
+    }
+    else
+    {
+        <td class="gamestart" style="color: red;">NO</td>
+    }
+    @if (move.Finished)
+    {
+        <td class="gamestart">@move.Finished</td>
+    }
+    else
+    {
+        <td class="gamestart" style="color: red;">@move.Finished</td>
+    }
+
+</tr>
+    }
+</table>
+}
+<button class="btn btn-primary" @onclick="BtnRefresh"><span class="oi oi-loop-circular" aria-hidden="true"></span>Refresh</button>
+<button class="btn btn-primary" @onclick="BtnOwn"><span class="oi oi-loop-circular" aria-hidden="true"></span>Own Moves</button>
+
+
+@code {
+    IEnumerable<MoveInfoExtended> MoveList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        MoveList = await GameField.GetMoves();
+    }
+
+    public async Task BtnRefresh()
+    {
+        MoveList = await GameField.GetMoves();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task BtnOwn()
+    {
+        MoveList = await GameField.GetLocalMoves();
+        await InvokeAsync(StateHasChanged);
+    }
+}

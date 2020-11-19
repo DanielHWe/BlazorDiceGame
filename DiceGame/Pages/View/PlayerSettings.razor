@@ -1,0 +1,56 @@
+﻿@using Model
+@using Services
+@inject GameService GameField
+
+
+<h3>Player</h3>
+
+<table class="gamestart">
+    <tr>
+        <th class="gamestart">No.</th>
+        <th class="gamestart">Name</th>
+        <th class="gamestart">Is Playing</th>
+    </tr>
+    @foreach (var player in GameField.GameField.Player)
+    {
+        if (player == null ||(GameField.PvPStatus != null && !player.IsPlaying)) continue;
+        <tr>
+            <td class="gamestart" style="color: @player.Color ;">@(player.Id + 1)</td>
+            <td class="gamestart"><input @bind="player.Name" @bind:event="oninput" /></td>
+            <td class="gamestart">
+                @if (GameField.PvPStatus != null)
+                {
+                    @if (player.IsLocalPlayer)
+                    {
+                        <span class="oi oi-person" aria-hidden="true" style="color: #9CD009;font-size: 24px;"></span>
+                    }
+                    else
+                    {
+                        <span class="oi oi-globe" aria-hidden="true" style="color: #9CD009;font-size: 24px;"></span>
+                    }
+                }
+                else if (player.IsPlaying)
+                {
+
+                    <span class="oi oi-circle-check" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(e => player.IsPlaying = false)"></span>
+                }
+                else
+                {
+                    <span class="oi oi-circle-x" aria-hidden="true" style="color: #FF0000;font-size: 24px;" @onclick="@(e => player.IsPlaying = true)"></span>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+@code {
+    protected override void OnInitialized()
+    {        
+        GameField.OnPlayerChange += Changed;        
+    }
+
+    private void Changed()
+    {
+        InvokeAsync(StateHasChanged);        
+    }
+}

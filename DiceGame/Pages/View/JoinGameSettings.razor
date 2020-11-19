@@ -1,0 +1,35 @@
+﻿@using Model
+@using Services
+
+@inject IModalService ModalService
+@inject GameService GameField
+
+<div>
+    <table class="gamestart">
+        <tr>
+            <td class="gamestart">Game Name</td>
+            <td class="gamestart"><input @bind="GameField.JoinRequest.GameName" @bind:event="oninput" /></td>
+        </tr>
+        <tr>
+            <td class="gamestart">Your Name</td>
+            <td class="gamestart"><input @bind="GameField.JoinRequest.Name" @bind:event="oninput" /></td>
+        </tr>
+    </table>
+
+
+    <button @onclick="Yes" class="btn btn-outline-danger">Next</button>
+</div>
+
+@code {
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+
+    public string Message { get; set; }
+
+    async Task Yes()
+    {        
+        BlazoredModal.Close();
+    }
+
+
+}

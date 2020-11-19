@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGame", "DiceGame.csproj", "{B767DCAF-8EF7-40FA-BFED-348AB800AAF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGame", "DiceGame\DiceGame.csproj", "{B767DCAF-8EF7-40FA-BFED-348AB800AAF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGame.Interfaces", "DiceGame.Interfaces\DiceGame.Interfaces.csproj", "{8E9D6D2B-C3A9-42BB-94B8-6B9874037AB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGameFunction", "DiceGameFunction\DiceGameFunction.csproj", "{2777BDA9-8F82-4EAE-A721-606E3CEABDEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiceGameSignalRServer", "DiceGameSignalRServer\DiceGameSignalRServer.csproj", "{A82444A1-D2F6-4749-953A-535E5299044A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{B767DCAF-8EF7-40FA-BFED-348AB800AAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B767DCAF-8EF7-40FA-BFED-348AB800AAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B767DCAF-8EF7-40FA-BFED-348AB800AAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E9D6D2B-C3A9-42BB-94B8-6B9874037AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9D6D2B-C3A9-42BB-94B8-6B9874037AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E9D6D2B-C3A9-42BB-94B8-6B9874037AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E9D6D2B-C3A9-42BB-94B8-6B9874037AB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2777BDA9-8F82-4EAE-A721-606E3CEABDEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2777BDA9-8F82-4EAE-A721-606E3CEABDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2777BDA9-8F82-4EAE-A721-606E3CEABDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2777BDA9-8F82-4EAE-A721-606E3CEABDEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82444A1-D2F6-4749-953A-535E5299044A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82444A1-D2F6-4749-953A-535E5299044A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82444A1-D2F6-4749-953A-535E5299044A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82444A1-D2F6-4749-953A-535E5299044A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

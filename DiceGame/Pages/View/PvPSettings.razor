@@ -1,0 +1,59 @@
+﻿@using Model
+@using Services
+@inject NavigationManager NavigationManager
+@inject GameService GameField
+@inject IToastService toastService
+
+<h3>PvPSettings</h3>
+
+@if (@GameField.PvPStatus != null && GameField.JoinRequest != null)
+{
+    <p>Game Id: <span>@GameField.PvPStatus.GameId</span></p>
+    <p>Game Name: <span>@GameField.JoinRequest.GameName</span></p>
+
+    if (GameField.GameField != null && GameField.GameField.Player != null)
+    {
+        <DiceGame.Pages.View.PlayerSettings></DiceGame.Pages.View.PlayerSettings>
+    }
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        GameField.OnStart += StartGame;
+        GameField.OnChange += PopupChanged;
+        GameField.OnError += PopupError;
+    }
+
+    private void PopupChanged(String message)
+    {
+        InvokeAsync(StateHasChanged);
+        if (!String.IsNullOrEmpty(message))
+        {
+            toastService.ShowInfo(message);
+        }
+    }
+
+    private void PopupError(String message)
+    {
+        InvokeAsync(StateHasChanged);
+        if (!String.IsNullOrEmpty(message))
+        {
+            toastService.ShowError(message, "Error");
+        }
+    }
+
+    private void StartGame(String gameid)
+    {
+        toastService.ShowInfo("Game started");        
+        NavigationManager.NavigateTo("/Game");
+    }
+
+    
+}
