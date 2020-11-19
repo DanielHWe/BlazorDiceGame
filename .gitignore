@@ -3,11 +3,3 @@
 ################################################################################
 
 /.vs/DiceGame
-/bin/Debug/netstandard2.1/wwwroot/_framework
-/bin/Debug/netstandard2.1
-/obj
-/DiceGame.csproj.user
-/bin/Release/netstandard2.1
-/Properties/PublishProfiles/FolderProfile.pubxml.user
-/Properties/PublishProfiles
-/.vs
