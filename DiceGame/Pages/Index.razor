@@ -7,9 +7,9 @@
 @inject GameService GameField
 @inject NotificationService notificationService
 
-<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px">Singleplayer Game</button>
-<button class="btn btn-primary" @onclick="BtnNewRemote"style="margin: 5px">New PvP Game</button>
-<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px">Join PvP Game</button>
+<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px"><span class="oi" aria-hidden="true">&#x1F464;</span>&nbsp;New Single Client Game</button>
+<button class="btn btn-primary" @onclick="BtnNewRemote" style="margin: 5px"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;New Network Game</button>
+<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;Join Network Game</button>
 
 <div style="margin: 5px">
     @if (LocalGame)

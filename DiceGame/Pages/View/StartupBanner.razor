@@ -2,33 +2,35 @@
 
 <p>
     This is a Blazor Sample of a Dice Game. It requires a connection to 3rd party servers and cookies.<br />
-    Also it is provides as is without any warenty or so on. <br />
+    Also it is provides as is without any warenty. <br />
     More information on GitHub. <a href="https://github.com/DanielHWe/BlazorDiceGame">https://github.com/DanielHWe/BlazorDiceGame</a>
 </p>
 @if (Approved)
 {
 <p>
     <input type="checkbox" checked @onchange="@(async (e) =>
-              await ToggleApprovedAsync(false))" />Accept Terms of use
+              await ToggleApprovedAsync(false))" />&nbsp;Accept Terms of use
 </p>
 }
 else
 {
 <p>
     <input type="checkbox" @onchange="@(async (e) =>
-              await ToggleApprovedAsync(true))" />Accept Terms of use
+              await ToggleApprovedAsync(true))" />&nbsp;Accept Terms of use
 </p>
 }
 
-<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F464;</span>&nbsp;New Singleplayer</button>
-<button class="btn btn-primary" @onclick="BtnNewRemote" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;New Multiplayer</button>
-<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;Join Multiplayer</button>
+<p>Password: <input @bind="Passwd" @bind:event="oninput" /></p>
+
+<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F464;</span>&nbsp;New Single Client Game</button>
+<button class="btn btn-primary" @onclick="BtnNewRemote" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;New Network Game</button>
+<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;Join Network Game</button>
 
 @code {
     private bool _approved;
     protected bool Approved {
         get { return _approved; }
-        set { 
+        set {
             _approved = value;
             IsDisabled = !value;
         }
@@ -37,6 +39,8 @@ else
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
 
     public string Message { get; set; }
+
+    public string Passwd { get; set; }
 
     async Task ToggleApprovedAsync(bool approved)
     {
@@ -53,16 +57,25 @@ else
 
     async Task BtnLocal()
     {
-        BlazoredModal.Close(ModalResult.Ok($"local"));
+        if (Passwd == "Ok")
+        {
+            BlazoredModal.Close(ModalResult.Ok($"local"));
+        }
     }
 
     async Task BtnNewRemote()
     {
-        BlazoredModal.Close(ModalResult.Ok($"remote"));
+        if (Passwd == "Ok")
+        {
+            BlazoredModal.Close(ModalResult.Ok($"remote"));
+        }
     }
 
     async Task BtnJoin()
     {
-        BlazoredModal.Close(ModalResult.Ok($"join"));
+        if (Passwd == "Ok")
+        {
+            BlazoredModal.Close(ModalResult.Ok($"join"));
+        }
     }
 }
