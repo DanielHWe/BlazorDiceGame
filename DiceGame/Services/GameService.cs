@@ -210,8 +210,9 @@ namespace DiceGame.Services
         }
 
         public void UpdateCallbacks(Action connectionLost)
-        {            
-            ((PvPDiceGameLogic)_logic).UpdateCallbacks(this, connectionLost);
+        {
+            var pvpLogic = _logic as PvPDiceGameLogic;
+            if (pvpLogic!=null) pvpLogic.UpdateCallbacks(this, connectionLost);
         }
 
         internal void StateChanged(string message) => OnChange?.Invoke(message);
