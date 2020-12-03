@@ -14,9 +14,7 @@ namespace DiceGame.Services
 {
     public class GameService: IDiceGameLogic
     {
-        internal static string BaseUrlOfFunction { get; set; } = "https://dicerapp.azurewebsites.net/";
-        //private const string BaseUrlOfFunction = "http://localhost:7071/api/";
-        //private string BaseUrlOfFunction = "https://localhost:6001/";
+        internal static string BaseUrlOfFunction { get; set; }
         private const bool useFunction = false;
         private readonly HttpClient client;
         private IDiceGameLogic _logic;

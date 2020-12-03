@@ -23,7 +23,7 @@ namespace DiceGame
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredModal();
-            builder.Services.AddBlazoredToast();
+            builder.Services.AddBlazoredToast();            
             builder.Services.AddSingleton<GameService>();
             builder.Services.AddSingleton<NotificationService>();
 
