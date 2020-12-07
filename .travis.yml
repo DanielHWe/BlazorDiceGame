@@ -6,7 +6,7 @@ install:
 - dotnet restore
 script:
 - dotnet build
-- dotnet publish .\DiceGame\DiceGame.csproj
+- dotnet publish ${TRAVIS_BUILD_DIR}\DiceGame\DiceGame.csproj
 before_deploy:
 - cd ${TRAVIS_BUILD_DIR}/DiceGame/bin/Debug/netstandard2.1/publish
 - zip -qr BlazorDiceGame.zip .
