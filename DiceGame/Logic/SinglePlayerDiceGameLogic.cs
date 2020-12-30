@@ -99,10 +99,11 @@ namespace DiceGame.Logic
             return move;
         }
 
-        public async Task<bool> TryMove(IPieceModel piece)
+        public async Task<IMoveModel> TryMove(IPieceModel piece)
         {
             var curr = ActivePlayer;
-            if (curr.TryMove(piece, GameField.ResetChangedPieces))
+            var move = curr.TryMove(piece, GameField.ResetChangedPieces);
+            if (move !=null)
             {
 
                 AllowMove = false;
@@ -110,9 +111,9 @@ namespace DiceGame.Logic
                 {
                     SelectNextPlayer();
                 }
-                return true;
+                return move;
             }
-            return false;
+            return null;
         }
 
         public Task<IEnumerable<MoveInfoExtended>> GetMovesFromServer(string gameId)

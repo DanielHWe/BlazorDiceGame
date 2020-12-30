@@ -225,7 +225,7 @@ namespace DiceGame.Model
 
         private PieceModel AddPiece(String color, int x, int y)
         {
-            var newPiece = new PieceModel() { Color = color, Id = _nextIdx++, X = x, Y = y };
+            var newPiece = new PieceModel() { Color = color, BaseColor = color, Id = _nextIdx++, X = x, Y = y };
             Pieces.Add(newPiece);
             if (_lastPiece != null)
             {
@@ -238,7 +238,7 @@ namespace DiceGame.Model
 
         private PieceModel AddFinalPiece(String color, int x, int y, PieceModel last)
         {
-            var newPiece = new PieceModel() { Color = color, Id = _nextIdx++, X = x, Y = y };
+            var newPiece = new PieceModel() { Color = color, BaseColor = color, Id = _nextIdx++, X = x, Y = y };
             Pieces.Add(newPiece);
             if (last != null)
             {

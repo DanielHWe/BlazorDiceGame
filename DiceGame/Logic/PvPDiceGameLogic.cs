@@ -334,7 +334,7 @@ namespace DiceGame.Logic
             return ActivePlayer.PossibleMoves.Where(m => m.ThrownMeeple != null).ToList();
         }
 
-        public async Task<bool> TryMove(IPieceModel piece)
+        public async Task<IMoveModel> TryMove(IPieceModel piece)
         {
             if (AllowMove)
             {
@@ -359,7 +359,7 @@ namespace DiceGame.Logic
                 }
                 return result;
             }
-            return false;
+            return null;
         }
     }
 

@@ -25,7 +25,7 @@ namespace DiceGame.Model
 
         bool IsLocalPlayer { get; set; }
 
-        global::System.Boolean TryMove(IPieceModel piece, Action resetBeforeMove);
+        IMoveModel TryMove(IPieceModel piece, Action resetBeforeMove);
         void RemoteDice(int dice);
         IMoveModel RemoteMove(MoveInfo move);
     }

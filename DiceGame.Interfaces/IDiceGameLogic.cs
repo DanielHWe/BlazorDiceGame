@@ -25,7 +25,7 @@ namespace DiceGame.Logic
 
         Task<IMoveModel> DoMove();
 
-        Task<bool> TryMove(IPieceModel piece);
+        Task<IMoveModel> TryMove(IPieceModel piece);
         Task<IEnumerable<DiceGame.Model.MoveInfoExtended>> GetMovesFromServer(String gameId);
 
         Task<IEnumerable<DiceGame.Model.MoveInfoExtended>> GetLocalMoves();

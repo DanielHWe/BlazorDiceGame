@@ -11,10 +11,13 @@ namespace DiceGame.Model
         public int X { get; set; }
         public int Y { get; set; }
 
+        public bool MovedOver { get; set; }
         public bool Changed { get; set; }
         public bool IsPossibleTargetOfMove { get; set; }
         public string ChangedColor { get; set; }
         public string Color { get; set; }
+
+        public string BaseColor { get; set; }
 
         public IMeepleModel Meeple { get; set; }
 

@@ -104,7 +104,7 @@ namespace DiceGame.Model
             return null;
         }
 
-        public bool TryMove(IPieceModel piece, Action resetBeforeMove)
+        public IMoveModel TryMove(IPieceModel piece, Action resetBeforeMove)
         {
             foreach (var move in PossibleMoves)
             {
@@ -112,16 +112,16 @@ namespace DiceGame.Model
                 {
                     resetBeforeMove();
                     move.Perform();
-                    return true;
+                    return move;
                 }
                 if (move.StartPosition == piece)
                 {
                     resetBeforeMove();
                     move.Perform();
-                    return true;
+                    return move;
                 }
             }
-            return false;
+            return null;
         }
 
         public void CalcMoves()

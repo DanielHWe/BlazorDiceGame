@@ -1,10 +1,12 @@
-﻿using DiceGame.Interfaces.Messages;
+﻿using DiceGame.Interfaces.Helper;
+using DiceGame.Interfaces.Messages;
 using DiceGame.Logic;
 using DiceGame.Model;
 using DiceGameFunction.Model;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,7 +102,7 @@ namespace DiceGame.Services
             return _logic.GetPossibleKicks();
         }
 
-        public async Task<bool> TryMove(IPieceModel piece)
+        public async Task<IMoveModel> TryMove(IPieceModel piece)
         {
             return await _logic.TryMove(piece);
         }
@@ -227,5 +229,9 @@ namespace DiceGame.Services
         {
             return await GetMoves();
         }
+
+       public bool DiceAnimation { get; set; }
+
+
     }
 }

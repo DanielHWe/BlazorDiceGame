@@ -5,7 +5,7 @@
         IPieceModel EndPosition { get; set; }
         IMeepleModel Meeple { get; set; }
         IPieceModel StartPosition { get; set; }
-        IMeepleModel ThrownMeeple { get; set; }
+        IMeepleModel ThrownMeeple { get; set; }        
 
         void Perform();
     }
