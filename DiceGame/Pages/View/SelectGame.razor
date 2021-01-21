@@ -4,6 +4,7 @@
 @inject NavigationManager NavigationManager
 @inject GameService GameField
 @inject IModalService ModalService
+@inject ILanguageContainerService language
 
 
 <div style="min-width: 250px; margin: 5px;">
@@ -19,28 +20,28 @@
     {
         <table class="gamestart" style="min-width: 250px;">
             <tr>
-                <th class="gamestart" style="min-width: 125px;">Name</th>
-                <th class="gamestart" style="min-width: 125px;">Host</th>
-                <th class="gamestart" style="min-width: 125px;">Created</th>
-                <th class="gamestart" style="min-width: 125px;">Start</th>
+                <th class="gamestart" style="min-width: 125px;">@language.Keys["GameName"]</th>
+                <th class="gamestart" style="min-width: 125px;">@language.Keys["Host"]</th>
+                <th class="gamestart" style="min-width: 125px;">@language.Keys["Created"]</th>
+                <th class="gamestart" style="min-width: 125px;">@language.Keys["Start"]</th>
             </tr>
             @foreach (var game in GameField.PvPStatus.OpenGames)
             {
                 if (game.GameName == null) continue;
-        <tr>
-            <td class="gamestart">@game.GameName </td>
-            <td class="gamestart">@game.HostName </td>
-            <td class="gamestart">@game.StartTime.ToShortTimeString() </td>
-            <td class="gamestart">
-                <span class="oi oi-media-play" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(() => BtnJoin(game))"></span>
-            </td>
-        </tr>
+                <tr>
+                    <td class="gamestart">@game.GameName </td>
+                    <td class="gamestart">@game.HostName </td>
+                    <td class="gamestart">@game.StartTime.ToShortTimeString() </td>
+                    <td class="gamestart">
+                        <span class="oi oi-media-play" aria-hidden="true" style="color: #9CD009;font-size: 24px;" @onclick="@(() => BtnJoin(game))"></span>
+                    </td>
+                </tr>
             }
         </table>
     }
     else
     {
-        <p>Server not connected or no game found, try to create a new PvP game.</p>
+        <p>@language.Keys["SelectGameNotFound"]</p>
     }
 </div>
 

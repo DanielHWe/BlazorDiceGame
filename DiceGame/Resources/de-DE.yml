@@ -1,0 +1,29 @@
+﻿Title: Würfel Spiel
+StartTitle: Blazor Würfel Spiel (beta)
+StartDescription: Dies ist ein Würfel Spiel als Beispiel für eine Blazor Anwendung. Es erfordert die Verbindung zu Servern von Drittanbietern und benutzt technisch notwendige Cookies.
+StartWarenty: Es wird ohne jedwede Gewähr zur Verfügung gestellt. 
+StartMoreInfo: Mehre Informationen auf GitHub.
+StartAcceptterms: Ich Akzeptiere die Bedingungen
+Password: Passwort
+GameTypeSinge: Neues Ein-Computer Spiel
+GameTypeStartMulti: Starte neues Netzwerkspiel
+GameTypeJoinMulti: Existierendem Spiel Beitreten
+IndexStartNew: Neues Spiel starten
+IndexStart: Start
+IndexStartGame: Spiel starten
+IndexWaitHost: Bitte warten sie bis der Gastgeber das Spiel startet.
+GameTurnOf: Am Zug ist
+GameDice: Würfeln
+GameRefresh: Refresh
+GameSettings: Einstellungen
+GameMoves: Züge
+WrongPwd: Falsches Passwort
+GameName: Name des Spiels
+GamePlayerName: Dein Name
+Number: Nr.
+PlayerName: Spieler Name
+IsPlaying: Spielt mit
+Host: Gastgeber
+Erstellt: Created
+Start: Start
+SelectGameNotFound: Server nicht verbunden oder kein Spiel verfügbar, bitte versuchen sie ein neues Spiel zu erstellen.

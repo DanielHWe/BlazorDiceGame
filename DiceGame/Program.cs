@@ -11,6 +11,8 @@ using Blazored.Modal;
 using DiceGame.Model;
 using Blazored.Toast;
 using DiceGame.Services;
+using AKSoftware.Localization.MultiLanguages;
+using System.Reflection;
 
 namespace DiceGame
 {
@@ -21,6 +23,7 @@ namespace DiceGame
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
+            builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly());
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddBlazoredModal();
             builder.Services.AddBlazoredToast();            

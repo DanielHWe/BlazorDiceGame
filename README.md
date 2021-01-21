@@ -35,13 +35,20 @@ In the DiceGame project, there are two simple pages:
 And there is one Service:
 Services/GameSevice, representing the model of the game and the game logic. 
 
+
 # Next steps
 * Deployment Scripts
 * Code Cleanup
 * Static Code Analysis
+* 4 Player Mode
+* Winning animation
 * Unit Tests
 * Ingame Chat
 * Finish Serverless Mode
 
 # Demo
 [http://blazordicegame.daniel-wehrle.de/](http://blazordicegame.daniel-wehrle.de/)
+
+## Multilanguage
+
+Thanks to [aksoftware98](https://github.com/aksoftware98/multilanguages) for the multilaguage Blazor package.

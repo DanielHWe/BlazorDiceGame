@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\de-DE.yml" />
+    <None Remove="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\de-DE.yml" />
+    <EmbeddedResource Include="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AKSoftware.Localization.MultiLanguages" Version="4.2.0" />
     <PackageReference Include="Blazored.Modal" Version="4.1.0" />
     <PackageReference Include="Blazored.Toast" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />

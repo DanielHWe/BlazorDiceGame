@@ -4,31 +4,32 @@
 @using Model
 @using Services
 @using System.Threading
-@using View; 
+@using View;
 @inject GameService GameField
 @inject IToastService toastService
 @inject NotificationService notificationService
 @inject NavigationManager NavigationManager
+@inject ILanguageContainerService language
 
 @if (GameField != null && GameField.ActivePlayer != null)
 {
-    <h1>Turn of @GameField.ActivePlayer.Name</h1>
+    <h1>@language.Keys["GameTurnOf"] @GameField.ActivePlayer.Name</h1>
 }
 else
 {
-    <h1>Dice Game</h1>
+<h1>@language.Keys["Title"]</h1>
 }
-<button class="btn btn-primary" @onclick="BtnDice" disabled="@GameField.DisableDice"><span class="oi" aria-hidden="true">&#x1f3b2;</span>Dice</button>
-<button class="btn btn-primary" @onclick="BtnRefresh"><span class="oi oi-loop-circular" aria-hidden="true"></span>Refresh</button>
-<button @onclick="ShowModal" class="btn btn-primary">Settings</button>
-<button @onclick="ShowMovesModal" class="btn btn-primary">Moves</button>
+<button class="btn btn-primary" @onclick="BtnDice" disabled="@GameField.DisableDice"><span class="oi" aria-hidden="true">&#x1f3b2;</span>@language.Keys["GameDice"]</button>
+<button class="btn btn-primary" @onclick="BtnRefresh"><span class="oi oi-loop-circular" aria-hidden="true"></span>@language.Keys["GameRefresh"]</button>
+<button @onclick="ShowModal" class="btn btn-primary">@language.Keys["GameSettings"]</button>
+<button @onclick="ShowMovesModal" class="btn btn-primary">@language.Keys["GameMoves"]</button>
 
 <div class="dice-game">
     @if (GameField != null)
     {
         @foreach (var piece in GameField.GameField.Pieces)
         {
-                <DiceGame.Pages.View.GamePieceView piece="@piece" OnClick="BtnKlick"></DiceGame.Pages.View.GamePieceView>
+            <DiceGame.Pages.View.GamePieceView piece="@piece" OnClick="BtnKlick"></DiceGame.Pages.View.GamePieceView>
         }
 
         if (!GameField.DiceAnimation)
@@ -89,7 +90,7 @@ else
     }
 </div>
 
-@code {    
+@code {
     int diceRollation = 0;
     CancellationTokenSource _cts;
     CancellationToken _ct;
@@ -134,7 +135,7 @@ else
     public async Task BtnKlick(IPieceModel piece)
     {
         var move = await GameField.TryMove(piece);
-        if (move !=null)
+        if (move != null)
         {
             StateHasChanged();
             await AnimateMove(move);
@@ -192,7 +193,7 @@ else
         GameField.DiceAnimation = true;
         StateHasChanged();
         int i = 0;
-        while (!_ct.IsCancellationRequested && i<15)
+        while (!_ct.IsCancellationRequested && i < 15)
         {
             i++;
             diceRollation += 10;
@@ -233,8 +234,8 @@ else
             StateHasChanged();
             await Task.Delay(25);
             i -= 10;
-        }        
-        while (curPos.Id != model.EndPosition.Id);
+        }
+        while (curPos.Id != model.EndPosition.Id) ;
         StateHasChanged();
     }
 }

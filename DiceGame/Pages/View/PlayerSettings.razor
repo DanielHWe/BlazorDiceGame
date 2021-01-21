@@ -1,19 +1,20 @@
 ﻿@using Model
 @using Services
 @inject GameService GameField
+@inject ILanguageContainerService language
 
 
 <h3>Player</h3>
 
 <table class="gamestart">
     <tr>
-        <th class="gamestart">No.</th>
-        <th class="gamestart">Name</th>
-        <th class="gamestart">Is Playing</th>
+        <th class="gamestart">@language.Keys["Number"]</th>
+        <th class="gamestart">@language.Keys["PlayerName"]</th>
+        <th class="gamestart">@language.Keys["IsPlaying"]</th>
     </tr>
     @foreach (var player in GameField.GameField.Player)
     {
-        if (player == null ||(GameField.PvPStatus != null && !player.IsPlaying)) continue;
+        if (player == null || (GameField.PvPStatus != null && !player.IsPlaying)) continue;
         <tr>
             <td class="gamestart" style="color: @player.Color ;">@(player.Id + 1)</td>
             <td class="gamestart"><input @bind="player.Name" @bind:event="oninput" /></td>
@@ -45,12 +46,12 @@
 
 @code {
     protected override void OnInitialized()
-    {        
-        GameField.OnPlayerChange += Changed;        
+    {
+        GameField.OnPlayerChange += Changed;
     }
 
     private void Changed()
     {
-        InvokeAsync(StateHasChanged);        
+        InvokeAsync(StateHasChanged);
     }
 }

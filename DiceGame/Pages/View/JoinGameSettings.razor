@@ -3,15 +3,16 @@
 
 @inject IModalService ModalService
 @inject GameService GameField
+@inject ILanguageContainerService language
 
 <div>
     <table class="gamestart">
         <tr>
-            <td class="gamestart">Game Name</td>
+            <td class="gamestart">@language.Keys["GameName"]</td>
             <td class="gamestart"><input @bind="GameField.JoinRequest.GameName" @bind:event="oninput" /></td>
         </tr>
         <tr>
-            <td class="gamestart">Your Name</td>
+            <td class="gamestart">@language.Keys["GamePlayerName"]</td>
             <td class="gamestart"><input @bind="GameField.JoinRequest.Name" @bind:event="oninput" /></td>
         </tr>
     </table>
@@ -27,7 +28,7 @@
     public string Message { get; set; }
 
     async Task Yes()
-    {        
+    {
         BlazoredModal.Close();
     }
 

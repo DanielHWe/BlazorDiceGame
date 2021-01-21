@@ -232,6 +232,7 @@ namespace DiceGame.Services
 
        public bool DiceAnimation { get; set; }
 
-
+        public bool Approved { get; set; }
+        public Action OnApproved { get; set; }
     }
 }

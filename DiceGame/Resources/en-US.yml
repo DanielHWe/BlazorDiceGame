@@ -1,0 +1,29 @@
+﻿Title: Dice Game
+StartTitle: Blazor Dize Game Sample (beta)
+StartDescription: This is a Blazor Sample of a Dice Game. It requires a connection to 3rd party servers and cookies.
+StartWarenty: Also it is provides as is without any warenty. 
+StartMoreInfo: More information on GitHub.
+StartAcceptterms: Accept Terms of use
+Password: Password
+GameTypeSinge: New Single Client Game
+GameTypeStartMulti: Create New Network Game
+GameTypeJoinMulti: Join Existing Network Game
+IndexStartNew: Start New Game
+IndexStart: Start
+IndexStartGame: Start Game
+IndexWaitHost: Please wait until the host starts the game.
+GameTurnOf: Turn of
+GameDice: Dice
+GameRefresh: Refresh
+GameSettings: Settings
+GameMoves: Moves
+WrongPwd: Wrong password
+GameName: Game Name
+GamePlayerName: Your Name
+Number: No.
+PlayerName: Player Name
+IsPlaying: Is Playing
+Host: Host
+Created: Created
+Start: Start
+SelectGameNotFound: Server not connected or no game found, try to create a new PvP game.

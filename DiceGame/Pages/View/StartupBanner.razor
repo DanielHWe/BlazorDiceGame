@@ -1,36 +1,50 @@
-﻿<h3>Blazor Dize Game Sample (beta)</h3>
+﻿@using Services
+@inject ILanguageContainerService language
+@inject IToastService toastService
+@inject GameService GameField
+
+<h3>@language.Keys["StartTitle"]</h3>
+
+<div class="row">
+    <button class="btn btn-primary" style="margin: 5px" @onclick='() => SetLanguage("de-DE")'>Deutsch</button>
+    <button class="btn btn-primary" style="margin: 5px" @onclick='() => SetLanguage("en-US")'>Englisch</button>
+</div>
 
 <p>
-    This is a Blazor Sample of a Dice Game. It requires a connection to 3rd party servers and cookies.<br />
-    Also it is provides as is without any warenty. <br />
-    More information on GitHub. <a href="https://github.com/DanielHWe/BlazorDiceGame">https://github.com/DanielHWe/BlazorDiceGame</a>
+    @language.Keys["StartDescription"]<br />
+    @language.Keys["StartWarenty"]<br />
+    @language.Keys["StartMoreInfo"] <a href="https://github.com/DanielHWe/BlazorDiceGame">https://github.com/DanielHWe/BlazorDiceGame</a>
 </p>
 @if (Approved)
 {
-<p>
-    <input type="checkbox" checked @onchange="@(async (e) =>
-              await ToggleApprovedAsync(false))" />&nbsp;Accept Terms of use
-</p>
-}
-else
-{
-<p>
-    <input type="checkbox" @onchange="@(async (e) =>
+    <p>
+        <input type="checkbox" checked @onchange="@(async (e) =>
+              await ToggleApprovedAsync(false))" />&nbsp;@language.Keys["StartAcceptterms"]
+        </p>
+    }
+    else
+    {
+        <p>
+            <input type="checkbox" @onchange="@(async (e) =>
               await ToggleApprovedAsync(true))" />&nbsp;Accept Terms of use
-</p>
-}
-
-<p>Password: <input @bind="Passwd" @bind:event="oninput" /></p>
-
-<button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F464;</span>&nbsp;New Single Client Game</button>
-<button class="btn btn-primary" @onclick="BtnNewRemote" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;New Network Game</button>
-<button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;Join Network Game</button>
+        </p>
+    }
+<div class="row">
+    <p>@language.Keys["Password"]: <input @bind="Passwd" @bind:event="oninput" /></p>
+</div>
+<div class="row">
+    <button class="btn btn-primary" @onclick="BtnLocal" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F464;</span>&nbsp;@language.Keys["GameTypeSinge"]</button>
+    <button class="btn btn-primary" @onclick="BtnNewRemote" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;@language.Keys["GameTypeStartMulti"]</button>
+    <button class="btn btn-primary" @onclick="BtnJoin" style="margin: 5px" disabled="@IsDisabled"><span class="oi" aria-hidden="true">&#x1F465;</span>&nbsp;@language.Keys["GameTypeJoinMulti"]</button>
+</div>
 
 @code {
     private bool _approved;
-    protected bool Approved {
+    protected bool Approved
+    {
         get { return _approved; }
-        set {
+        set
+        {
             _approved = value;
             IsDisabled = !value;
         }
@@ -59,7 +73,13 @@ else
     {
         if (Passwd == "Ok")
         {
+            GameField.Approved = true;
+            if (GameField.OnApproved != null) GameField.OnApproved();
             BlazoredModal.Close(ModalResult.Ok($"local"));
+        }
+        else
+        {
+            toastService.ShowError(language.Keys["WrongPwd"]);
         }
     }
 
@@ -67,7 +87,13 @@ else
     {
         if (Passwd == "Ok")
         {
+            GameField.Approved = true;
+            if (GameField.OnApproved != null) GameField.OnApproved();
             BlazoredModal.Close(ModalResult.Ok($"remote"));
+        }
+        else
+        {
+            toastService.ShowError(language.Keys["WrongPwd"]);
         }
     }
 
@@ -75,7 +101,19 @@ else
     {
         if (Passwd == "Ok")
         {
+            GameField.Approved = true;
+            if (GameField.OnApproved != null) GameField.OnApproved();
             BlazoredModal.Close(ModalResult.Ok($"join"));
         }
+        else
+        {
+            toastService.ShowError(language.Keys["WrongPwd"]);
+        }
+    }
+
+    void SetLanguage(String lang)
+    {
+        language.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo(lang));
+        InvokeAsync(StateHasChanged);
     }
 }
